@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Builder App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Profile Builder App</h1>
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input 
+                type="text" 
+                class="form-control"
+                 id="name" 
+                 placeholder="Enter Name"
+                 >
+
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                type="email" 
+                class="form-control"
+                 id="email" 
+                 placeholder="Enter Email"
+                 >
+
+            </div>
+            <div class="form-group">
+                <label for="profession">profession</label>
+                <input 
+                type="text" 
+                class="form-control"
+                 id="profession" 
+                 placeholder="Profession"
+                 >
+
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <table class="table table-striped
+            mt-3
+            ">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Profession</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="product-list">
+                  <!-- <tr>
+                    <th scope="row">Name</th>
+                    <td>Email</td>
+                    <td>Profession</td>
+                    <td>Delate</td>
+                  </tr> -->
+                  
+                </tbody>
+              </table>
+            
+            
+        </form>
+
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>
