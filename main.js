@@ -20,6 +20,11 @@ UI.prototype.addProfileToList=function({name,email,profession}){
    .appendChild(tr);
 
 }
+UI.prototype.clearField=function(){
+  document.querySelector('#name').value='';
+  document.querySelector('#email').value='';
+  document.querySelector('#profession').value='';
+}
 document.querySelector('form')
 .addEventListener('submit',e =>{
   const name = document.querySelector('#name').value;
@@ -29,6 +34,14 @@ document.querySelector('form')
   const profile = new Profile(name,email,profession);
   //instatiate ui object
   const ui=new UI();
-  ui.addProfileToList(profile);
+  if(name=== '' || email === '' || profession === ''){
+    console.log("Please fill up the information")
+  }
+  else{
+
+    ui.addProfileToList(profile);
+    ui.clearField()
+  }
+ 
     e.preventDefault();
 })
