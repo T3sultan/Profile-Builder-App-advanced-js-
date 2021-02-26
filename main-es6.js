@@ -20,8 +20,40 @@ class Store{
         localStorage.setItem('profiles',JSON.stringify(profiles));
 
     }
+    static getProfile(){
+        let profiles;
+        if(localStorage.getItem('profiles')==null){
+             profiles=[];
+
+        }
+        else{
+         profiles=JSON.parse( localStorage.getItem('profiles'));
+        }
+        return profiles;
+
+    }
+    static displayProfiles(){
+        const profiles=Store.getProfiles();
+        profiles.forEach(profile => {
+            const ui=new UI();
+            ui.addProfileToList(profile)
+            
+        });
+    }
+    static deletProfileFromStore(id){
+        const profiles= Store.getProfiles();
+        profiles.forEach((profile,index)=>{
+           if(profile.id===id){
+               profiles.splice(index,1)
+           }
+
+        })
+        localStorage.setItem('profiles',JSON.stringify(profiles)
+    }
 
 }
+
+window.addEventListener('DOMContentLoaded',Store.displayProfiles)
 class UI {
     addProfileToList({id, name, email, profession }) {
         const tr = document.createElement('tr');
@@ -45,6 +77,8 @@ class UI {
     }
     deletProfile(target) {
         if (target.id === "delete") {
+            const id=target.parentElement.previousElementSibling.dataset.id;
+            Store.deletProfileFromStore(id)
             target.parentElement.parentElement.remove();
         }
 
