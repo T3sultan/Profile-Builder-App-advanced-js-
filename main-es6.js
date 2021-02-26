@@ -1,18 +1,36 @@
 class Profile {
-    constructor(name, email, profession) {
+    constructor(id,name, email, profession) {
+        this.id=id;
         this.name = name;
         this.email = email;
         this.profession = profession;
     }
 };
+
+class Store{
+    static addToStorage(profile){
+        let profiles;
+        if(localStorage.getItem('profiles')===null){
+            profiles=[];
+
+        }else{
+            profiles=JSON.parse(localStorage.getItem('profiles '));
+        }
+        profiles.push(profile);
+        localStorage.setItem('profiles',JSON.stringify(profiles));
+
+    }
+
+}
 class UI {
-    addProfileToList({ name, email, profession }) {
+    addProfileToList({id, name, email, profession }) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
    <tr>
       <th scope="row">${name}</th>
       <td >${email}</td>
       <td>${profession}</td>
+      <input type="hidden" data-id="${id}">
       <td><i class="fa fa-trash"! id="delete"></i>Delate</td>
  </tr>
    `;
@@ -46,6 +64,9 @@ class UI {
 
     }
 
+    getId(){
+        return document.querySelectorAll('tr').length;
+    }
 }
 
 
@@ -54,10 +75,13 @@ document.querySelector('form')
     const name = document.querySelector('#name').value;
     const email = document.querySelector('#email').value;
     const profession = document.querySelector('#profession').value;
-    //instantiate profile object
-    const profile = new Profile(name, email, profession);
+    
     //instatiate ui object
     const ui = new UI();
+    const id=ui.getId();
+   
+    //instantiate profile object
+    const profile = new Profile(id,name, email, profession);
     if (name === '' || email === '' || profession === '') {
       ui.showAlert('Please provide necessary information', 'danger')
     }
@@ -65,6 +89,9 @@ document.querySelector('form')
       ui.showAlert('Profile is added', 'success')
 
       ui.addProfileToList(profile);
+      //adding to local store
+      Store.addToStorage(profile)
+
       ui.clearField()
     }
 
