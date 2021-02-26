@@ -2,8 +2,6 @@ function Profile(name, email, profession) {
   this.name = name;
   this.email = email;
   this.profession = profession;
-
-
 }
 function UI() { }
 UI.prototype.addProfileToList = function ({ name, email, profession }) {
@@ -31,8 +29,27 @@ UI.prototype.deleteProfile = function (target) {
   if (target.id === "delete") {
     target.parentElement.parentElement.remove();
   }
+}
+//showing alert message
+UI.prototype.showAlert = function (message, className) {
+  //   <div class="alert alert-success" role="alert">
+  //   A simple success alert—check it out!
+  // </div>
+  const form= document.querySelector('form');
+  const container = document.querySelector('.container');
+  const div = document.createElement('div');
+  div.className=`alert alert-${className}`
+  
+   div.textContent=message;
+   container.insertBefore(div,form)
+   setTimeout(()=>{
+     document.querySelector('.alert').remove()
+   },2000)
+  
+ 
 
 }
+
 document.querySelector('form')
   .addEventListener('submit', e => {
     const name = document.querySelector('#name').value;
@@ -43,9 +60,10 @@ document.querySelector('form')
     //instatiate ui object
     const ui = new UI();
     if (name === '' || email === '' || profession === '') {
-      console.log("Please fill up the information")
+      ui.showAlert('Please provide necessary information', 'danger')
     }
     else {
+      ui.showAlert('Profile is added', 'success')
 
       ui.addProfileToList(profile);
       ui.clearField()
@@ -58,4 +76,5 @@ document.querySelector('#profile-list')
   .addEventListener('click', e => {
     const ui = new UI();
     ui.deleteProfile(e.target);
+    ui.showAlert('Profile is remove', 'success')
   });
